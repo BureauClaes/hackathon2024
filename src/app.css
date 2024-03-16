@@ -5,3 +5,10 @@
 :root {
 	@apply bg-slate-100;
 }
+
+a,
+button,
+input,
+textarea {
+	@apply focus:outline-black;
+}

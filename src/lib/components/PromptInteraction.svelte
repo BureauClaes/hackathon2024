@@ -5,9 +5,9 @@
 
 	export let prompt = [];
 
-	onMount(() => {
-		console.log(prompt);
-	});
+	// onMount(() => {
+	// 	console.log('Prompt', prompt);
+	// });
 </script>
 
 <ul class="space-y-4">
