@@ -1,6 +1,5 @@
 <script>
 	import clsx from 'clsx';
-	import { fade } from 'svelte/transition';
 	import PromptInteraction from '../lib/components/PromptInteraction.svelte';
 	import Notification from '../lib/components/Notification.svelte';
 	import DatabasesFilter from '../lib/components/DatabasesFilter.svelte';
@@ -21,7 +20,6 @@
 
 	async function handleSubmit(e) {
 		e.preventDefault();
-		console.log(promptInput);
 		if (promptInput !== '' && promptInput !== undefined) {
 			prompt = [
 				...prompt,
@@ -35,13 +33,7 @@
 			fetch('https://dummyapi.online/api/todos')
 				.then((response) => response.json())
 				.then((json) => (items = json));
-
-			console.log(items[Math.floor(Math.random() * items.length)]);
 		}
-	}
-
-	function handleAddFilter(event) {
-		console.log(event);
 	}
 
 	let prompt = [
@@ -117,11 +109,13 @@
 			{/if}
 		</svg>
 		<!-- Notification -->
-		<Notification>3</Notification>
+		{#if $settings.filters.length > 0}
+			<Notification>{$settings.filters.length}</Notification>
+		{/if}
 	</button>
 </aside>
 {#if $settings.filtersOpen}
-	<DatabasesFilter {filtersOpen} on:addfilter={handleAddFilter} />
+	<DatabasesFilter {filtersOpen} />
 {/if}
 
 <style lang="postcss">

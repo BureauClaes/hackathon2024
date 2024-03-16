@@ -1,45 +1,38 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
 	import settings from '$lib/stores/settings';
 
 	import clsx from 'clsx';
-	import { slide } from 'svelte/transition';
+	import { fade } from 'svelte/transition';
 
 	export let filtersOpen;
-	$: {
-		if ($settings.filtersOpen !== true && $settings.filtersOpen !== false) {
-			$settings.filtersOpen = filtersOpen;
-		} else {
-			filtersOpen = $settings.filtersOpen;
-		}
-	}
-	const dispatch = createEventDispatcher();
+
+	let filteredDatabases, filterDatabaseElement, selectedFilters;
 
 	// Databases Sources
-	let databases = [
+	const databasesSource = [
 		{
 			id: 'db1',
 			checked: false,
 			category: 'Economie',
-			label: 'Database 1'
+			label: 'Pomme'
 		},
 		{
 			id: 'db2',
 			checked: false,
 			category: 'Economie',
-			label: 'Database 2'
+			label: 'Poire'
 		},
 		{
 			id: 'db3',
 			checked: false,
 			category: 'Economie',
-			label: 'Database 3'
+			label: 'Abricot'
 		},
 		{
 			id: 'db4',
 			checked: false,
 			category: 'Economie',
-			label: 'Database 4'
+			label: 'Fraise'
 		},
 		{
 			id: 'db5',
@@ -67,55 +60,123 @@
 		}
 	];
 
-	// Selected Databases to export
-	let selectedDatabases = [];
+	let databases = databasesSource;
 
-	function handleAddFilter(database) {
-		dispatch('addfilter', {
-			filters: selectedDatabases
+	// Check selected databases compared to original databases list
+	if ($settings.filters && $settings.filters.length > 0) {
+		databases.map((database, index) => {
+			$settings.filters.map((filter) => {
+				if (database.id === filter.id) {
+					database.checked = true;
+				}
+			});
 		});
 	}
+
+	$: console.log($settings.filters);
 </script>
 
-<modal open class="absolute w-full top-0 bg-gray-20 h-screen z-20 px-4 py-10" transition:slide>
-	<button
-		class="relative {clsx(
-			filtersOpen && 'bg-neutral-300',
-			!filtersOpen && 'bg-neutral-200 can-hover:hover:bg-neutral-300'
-		)} transition-all duration-200 rounded-cards w-fit aspect-square grid place-items-center"
-		on:click={() => ($settings.filtersOpen = !$settings.filtersOpen)}
-	>
-		<svg
-			class="w-6 aspect-square h-fit fill-black"
-			viewBox="0 0 24 24"
-			xmlns="http://www.w3.org/2000/svg"
+<modal
+	open
+	class="absolute w-full top-0 bg-white h-screen z-20 px-4 pb-10 pt-5"
+	transition:fade={{ duration: 100 }}
+>
+	<!-- Bottom bar -->
+	<aside class="w-full left-4 grid grid-cols-[auto_56px] gap-2">
+		<!-- Filter input -->
+		<form action="" class="relative w-full">
+			<input
+				type="text"
+				class="w-full z-0 p-4 bg-neutral-200 rounded-cards"
+				placeholder="Chercher une base de données"
+				bind:value={filteredDatabases}
+				on:keydown={(e) => {
+					if (filteredDatabases && filteredDatabases.length > 1) {
+						databases = databasesSource.map((db) => {
+							if (db && db.label.includes(filteredDatabases)) {
+								return db;
+							}
+						});
+					} else {
+						databases = databasesSource;
+					}
+				}}
+			/>
+		</form>
+		<!-- Close button --><button
+			class="relative bg-neutral-200 can-hover:hover:bg-neutral-300 transition-all duration-200 rounded-cards w-fit aspect-square grid place-items-center"
+			on:click={() => ($settings.filtersOpen = !$settings.filtersOpen)}
 		>
 			<!-- Close icon -->
-			<path
-				d="m12 10.583 4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414L12 13.41l-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.633l4.95 4.95Z"
-			></path>
-		</svg>
-	</button>
-	<form action="" inputmode="none">
-		<ul>
-			{#each databases as database}
-				<li>
-					<input
-						type="checkbox"
-						id={database.id}
-						on:click={() => {
-							// Update
-							database.checked = !database.checked;
-							if (database.checked && !selectedDatabases.includes(database)) {
-								selectedDatabases = [...selectedDatabases, database];
-							} else if (!database.checked && selectedDatabases.includes(database)) {
-								selectedDatabases = selectedDatabases.filter((d) => d !== database);
-							}
+			<svg
+				class="w-6 aspect-square h-fit fill-black"
+				viewBox="0 0 24 24"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="m12 10.583 4.95-4.95 1.414 1.414-4.95 4.95 4.95 4.95-1.414 1.414L12 13.41l-4.95 4.95-1.414-1.414 4.95-4.95-4.95-4.95L7.05 5.633l4.95 4.95Z"
+				></path>
+			</svg>
+		</button>
+	</aside>
 
-							handleAddFilter(database);
-						}}
-					/><label for={database.id}>{database.label}</label>
-				</li>
+	<!-- Checkboxes -->
+	<div class="mt-7 mb-2 w-full flex flex-row justify-between">
+		<p>
+			{$settings.filters.length} filtre<span
+				class={clsx(
+					'',
+					$settings.filters.length > 1 && 'inline',
+					$settings.filters.length <= 1 && 'hidden'
+				)}>s</span
+			>
+			sélectionné<span
+				class={clsx(
+					'',
+					$settings.filters.length > 1 && 'inline',
+					$settings.filters.length <= 1 && 'hidden'
+				)}>s</span
+			>
+		</p>
+		<button
+			class="underline font-semibold"
+			disabled={$settings.filters.length <= 0}
+			on:click={() => {
+				$settings.filters = [];
+				databases = databasesSource.map((db) => ({ ...db, checked: false }));
+			}}>Réinitialiser</button
+		>
+	</div>
+	<form action="" inputmode="none" class="">
+		<ul class="w-full space-y-2 flex flex-col">
+			{#each databases as database}
+				{#if database}
+					<li>
+						<input
+							type="checkbox"
+							class="sr-only"
+							id={database.id}
+							bind:checked={database.checked}
+							on:click={() => {
+								// Update
+								database.checked = !database.checked;
+								// Add checked database if not included in filters
+								if (database.checked && !$settings.filters.includes(database)) {
+									$settings.filters = [...$settings.filters, database];
+								} else if (!database.checked) {
+									// Remove unchecked database
+									$settings.filters = $settings.filters.filter((d) => d.id !== database.id);
+								}
+							}}
+						/><label
+							class="py-3 border-2 pl-4 w-full block rounded-cards hover:cursor-pointer {clsx(
+								'',
+								database.checked && 'bg-gray-80 text-white'
+							)} "
+							for={database.id}>{database.label}</label
+						>
+					</li>
+				{/if}
 			{/each}
 		</ul>
 	</form>
