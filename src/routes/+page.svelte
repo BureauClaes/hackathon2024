@@ -98,8 +98,8 @@
 </script>
 
 <section
-	class="px-2 flex flex-col {clsx(
-		$settings.prompt && 'justify-start pt-16 h-[calc(100vh-82px)]',
+	class="px-2 flex flex-col h-[700px] {clsx(
+		$settings.prompt && 'justify-start pt-16 h-fit',
 		$settings.prompt == '' && ''
 	)} overflow-y-scroll"
 >
@@ -114,7 +114,7 @@
 	{/if}
 </section>
 <!-- Bottom bar -->
-<aside class="relative w-[calc(100%-2rem)] left-4 grid grid-cols-[auto_56px] gap-2 bg-white">
+<aside class="left-0 right-0 p-4 bottom-0 w-full grid grid-cols-[auto_56px] gap-2 bg-white">
 	<!-- Prompt input -->
 	<form method="post" action="#" class="relative w-full">
 		<input

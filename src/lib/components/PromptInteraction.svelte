@@ -4,7 +4,7 @@
 	import settings from '$lib/stores/settings';
 </script>
 
-<ul class="space-y-4 pt-[4vh] pl-2">
+<ul class="space-y-4 pt-[4vh] h-[700px] overflow-y-auto pl-2">
 	{#if $settings.answers.length > 0}
 		{#each $settings.answers as entry, index (index)}
 			<li style="animation-delay: {1000 * index};">
