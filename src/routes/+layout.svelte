@@ -3,7 +3,7 @@
 	import Nav from '../lib/components/Nav.svelte';
 </script>
 
-<div class="relative mx-auto">
+<div class="relative max-w-[400px] mx-auto">
 	<Nav />
 	<slot />
 </div>

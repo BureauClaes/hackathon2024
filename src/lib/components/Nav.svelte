@@ -3,12 +3,14 @@
 
 	function restart() {
 		$settings.answer = [];
-		localStorage.clear();
+		localStorage.removeItem('previousAnswer');
 		window.location.reload();
 	}
 </script>
 
-<nav class="fixed px-2 pt-2 flex flex-row justify-between w-full items-center">
+<nav
+	class="fixed px-4 pt-5 pb-2 flex flex-row justify-between w-full items-center bg-slate-100 left-[1/2]"
+>
 	<button on:click={restart} class="flex flex-row">
 		<svg width="72" height="26" viewBox="0 0 72 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 			<path
@@ -30,8 +32,22 @@
 		</svg></button
 	>
 
-	<div>
-		<button class="rounded-lg bg-neutral-200 py-2 px-3" on:click={restart}>Nouveau</button>
-		<button><span class="sr-only">Historique</span></button>
+	<div class="flex flex-row items-stretch gap-2">
+		<button class="rounded-lg bg-neutral-200 py-3 px-3" on:click={restart}>Nouveau</button>
+		<button
+			disabled
+			class="aspect-square h-[48px] grid place-items-center bg-neutral-200 rounded-lg cursor-not-allowed opacity-30"
+			><span class="sr-only">Historique</span>
+			<svg
+				class="aspect-square w-[23px] h-fit fill-gray-40"
+				fill="currentColor"
+				viewBox="0 0 24 24"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12h2a8 8 0 1 0 1.385-4.5H8v2H2v-6h2V6a9.98 9.98 0 0 1 8-4Zm1 5v4.585l3.243 3.243-1.415 1.415L11 12.413V7h2Z"
+				></path>
+			</svg></button
+		>
 	</div>
 </nav>

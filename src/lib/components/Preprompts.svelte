@@ -16,6 +16,7 @@
 		{#if prompt.section == 'Tendance'}
 			<li>
 				<button
+					disabled
 					class="flex flex-col justify-center card-{prompt.category.toLowerCase()}"
 					on:click={() => {
 						selectedPrompt = prompt;
@@ -35,6 +36,7 @@
 		{#if prompt.section == 'Pour vous'}
 			<li>
 				<button
+					disabled
 					on:click={() => {
 						selectedPrompt = prompt;
 						handleClick();
