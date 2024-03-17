@@ -1,12 +1,22 @@
 <script>
+	/* import { onMount } from 'svelte'; */
+
 	export let form;
 
 	$: console.log(form);
+	/* onMount({
+		if(form) {
+			let responseBlock = document.getElementById('responseBlock');
+			responseBlock.innerHTML = form;
+		}
+	}); */
 </script>
 
 <section class="px-2 pt-6">
 	<div class="w-fit">
-		<div id="responseBlock"></div>
+		<div id="responseBlock">
+			{@html `<div>${form}</div>`}
+		</div>
 		<form method="post" action="#">
 			<div class="flex flex-col items-start mb-3">
 				<label for="question" class="mb-2">Posez votre question :</label>
