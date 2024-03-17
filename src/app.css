@@ -2,6 +2,70 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: 'Inter';
+	src: url('/fonts/inter.woff2');
+}
+
+@font-face {
+	font-family: 'Happy';
+	src:
+		url('/fonts/happy-times-ng_regular.woff2') format('woff2'),
+		url('/fonts/happy-times-ng_regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'Happy';
+	src:
+		url('/fonts/happy-times-ng_italic.woff') format('woff2'),
+		url('/fonts/happy-times-ng_italic.woff2') format('woff');
+	font-weight: normal;
+	font-style: italic;
+}
+
 :root {
-	@apply bg-slate-100;
+	@apply bg-slate-100 font-inter;
+}
+
+h1 {
+	@apply font-happy;
+}
+
+a,
+button,
+input,
+textarea {
+	@apply focus:outline-black;
+}
+
+.card-environnement {
+	@apply bg-un border-un-medium text-un-dark  can-hover:hover:bg-un-dark can-hover:hover:text-white transition-all duration-200;
+}
+
+.card-environnement.checked {
+	@apply bg-un-dark text-white;
+}
+
+.card-culture {
+	@apply bg-deux border-deux-medium text-deux-dark  can-hover:hover:bg-deux-dark can-hover:hover:text-white transition-all duration-200;
+}
+
+.card-culture.checked {
+	@apply bg-deux-dark text-white;
+}
+
+.card-mobilité {
+	@apply bg-trois border-trois-medium text-trois-dark can-hover:hover:bg-trois-dark can-hover:hover:text-white transition-all duration-200;
+}
+
+.card-mobilité.checked {
+	@apply bg-trois-dark text-white;
+}
+.card-santé {
+	@apply bg-quatre border-quatre-medium text-quatre-dark can-hover:hover:bg-quatre-dark can-hover:hover:text-white transition-all duration-200;
+}
+.card-santé.checked {
+	@apply bg-quatre-dark text-white;
 }

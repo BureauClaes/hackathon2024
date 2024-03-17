@@ -5,8 +5,6 @@
 	fetch('https://dummyapi.online/api/todos')
 		.then((response) => response.json())
 		.then((json) => (items = json));
-
-	$: console.log(items);
 </script>
 
 <h1 class="text-3xl font-bold underline">Hello world!</h1>

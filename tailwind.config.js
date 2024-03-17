@@ -10,27 +10,43 @@ export default {
 		},
 
 		fontFamily: {
-			sans: ['Graphik', 'sans-serif'],
-			serif: ['Merriweather', 'serif']
+			inter: ['Inter', 'sans-serif'],
+			happy: ['Happy', 'sans-serif']
 		},
 		extend: {
 			borderRadius: {
 				cards: '12px'
 			},
+
 			colors: {
-				blue: '#1fb6ff',
-				purple: '#7e5bef',
-				pink: '#ff49db',
-				orange: '#ff7849',
-				primary: {
-					DEFAULT: '#EA5341',
-					hover: '#DA402E'
+				un: {
+					DEFAULT: '#F2FAF6',
+					medium: '#BDDDCE',
+					dark: '#00BE1E'
 				},
-				secondary: '#192945',
-				tertiary: {
-					light: '#EAF3FF',
-					dark: '#CFE4FF'
+				deux: {
+					DEFAULT: '#F8F5F9',
+					medium: '#D062ED',
+					dark: '#B500E5'
 				},
+				trois: {
+					DEFAULT: '#F6ECED',
+					medium: '#C47D5F',
+					dark: '#A33300'
+				},
+				quatre: {
+					DEFAULT: '#F6EBEE',
+					medium: '#EFC4C4',
+					dark: '#FF0D00'
+				},
+				cinq: {
+					DEFAULT: '#E5F6FF',
+					medium: '#C3EAFF',
+					dark: '#009BEF'
+				},
+				six: '#A8D1E7',
+				sept: '#F4D1AF',
+				huit: '#AFE8BF',
 				gray: {
 					pastel: '#FBFBFB',
 					20: '#CCCCCC',
@@ -41,5 +57,5 @@ export default {
 			}
 		}
 	},
-	plugins: []
+	plugins: [require('tailwindcss-interaction-media')]
 };

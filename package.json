@@ -23,6 +23,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"clsx": "^2.1.0"
+		"clsx": "^2.1.0",
+		"tailwindcss-interaction-media": "^0.1.0"
 	}
 }
