@@ -26,7 +26,7 @@
 }
 
 :root {
-	@apply font-inter bg-slate-200;
+	@apply bg-slate-100 font-inter;
 }
 
 h1 {
@@ -39,39 +39,45 @@ input,
 textarea {
 	@apply focus:outline-black;
 }
+.card:has(span) {
+	@apply relative justify-end pt-10 bg-slate-50;
+}
 
-.card-environnement {
-	@apply bg-un border-un-medium text-un-dark  can-hover:hover:bg-un-dark can-hover:hover:text-white transition-all duration-200;
+.card span {
+	@apply absolute py-1 px-2 rounded-full top-2 left-2 bg-white;
+}
+
+.card-environnement span {
+	@apply border-un-medium text-un-dark;
+}
+.card-santé span {
+	@apply border-quatre-medium text-quatre-dark;
+}
+.card-culture span {
+	@apply border-deux-medium text-deux-dark;
+}
+.card-mobilité span {
+	@apply border-trois-medium text-trois-dark;
 }
 
 .card-environnement.checked {
 	@apply bg-un-dark text-white;
 }
 
-.card-culture {
-	@apply bg-deux border-deux-medium text-deux-dark  can-hover:hover:bg-deux-dark can-hover:hover:text-white transition-all duration-200;
-}
-
 .card-culture.checked {
 	@apply bg-deux-dark text-white;
-}
-
-.card-mobilité {
-	@apply bg-trois border-trois-medium text-trois-dark can-hover:hover:bg-trois-dark can-hover:hover:text-white transition-all duration-200;
 }
 
 .card-mobilité.checked {
 	@apply bg-trois-dark text-white;
 }
-.card-santé {
-	@apply bg-quatre border-quatre-medium text-quatre-dark can-hover:hover:bg-quatre-dark can-hover:hover:text-white transition-all duration-200;
-}
+
 .card-santé.checked {
 	@apply bg-quatre-dark text-white;
 }
 
-.card-économie {
-	@apply bg-cinq border-cinq-medium text-cinq-dark can-hover:hover:bg-cinq-dark can-hover:hover:text-white transition-all duration-200;
+.card-économie span {
+	@apply border-cinq-medium text-cinq-dark;
 }
 .card-économie.checked {
 	@apply bg-cinq-dark text-white;

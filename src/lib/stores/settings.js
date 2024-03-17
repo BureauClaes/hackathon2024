@@ -3,7 +3,8 @@ import { writable } from 'svelte/store';
 const settings = writable({
 	filtersOpen: false,
 	filters: [],
-	prompt: [],
+	isAnswering: false,
+	selectedPrompt: '',
 	answers: [],
 	fontSize: 12
 });

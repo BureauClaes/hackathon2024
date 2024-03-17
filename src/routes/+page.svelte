@@ -22,32 +22,38 @@
 		{
 			category: 'Environnement',
 			prompt: 'Où sont les bulles à verre à Verviers ?',
-			section: 'Tendance'
+			section: 'Tendance',
+			id: 1
 		},
 		{
 			category: 'Culture',
 			prompt: 'Activités en extérieur à Mons?',
-			section: 'Tendance'
+			section: 'Tendance',
+			id: 2
 		},
 		{
 			category: 'Mobilité',
 			prompt: 'Y-a-t-il un RaVel à Charleroi ?',
-			section: 'Tendance'
+			section: 'Tendance',
+			id: 3
 		},
 		{
 			category: 'Santé',
 			prompt: 'Où se trouvent les défibrillateurs ? ',
-			section: 'Tendance'
+			section: 'Tendance',
+			id: 4
 		},
 		{
 			category: 'Économie',
 			prompt: 'Quels sont les emplois en pénurie en Wallonie en 2024 ?',
-			section: 'Pour vous'
+			section: 'Pour vous',
+			id: 5
 		},
 		{
 			category: 'Environnement',
 			prompt: 'Quelles sont les zones inondables en Wallonie ?',
-			section: 'Pour vous'
+			section: 'Pour vous',
+			id: 6
 		}
 	];
 	if ($settings.prompts === undefined || $settings.prompts.length === 0) {
@@ -56,73 +62,47 @@
 
 	// Handle Prompt suggestions
 	function handlePromptStart(e) {
-		$settings.prompt = [
+		console.log(e);
+		$settings.answers = [
 			{
 				author: 'Vous',
-				text: e.detail.prompt.prompt
+				text: e.detail.prompt.prompt,
+				id: e.detail.prompt.id
 			}
 		];
+		$settings.isAnswering = true;
 	}
 
-	// ________________
-
-	import { onMount } from 'svelte';
-
-	export let form = '';
 	let data;
-	onMount(() => {
-		if (form !== null) {
-			let question = {
-				author: 'Vous',
-				text: localStorage.getItem('currentQuestion')
-			};
-			let answer = {
-				author: 'dat',
-				text: form
-			};
-
-			let previousAnswers = localStorage.getItem('previousAnswer');
-			if (previousAnswers) {
-				data = JSON.parse(previousAnswers);
-				data = [...data, question, answer];
-			} else {
-				data = [question, answer];
-			}
-
-			if (data) {
-				localStorage.setItem('previousAnswer', JSON.stringify(data));
-			}
-		}
-		$settings.answers = JSON.parse(localStorage.getItem('previousAnswer'));
-	});
 </script>
 
 <section
-	class="px-2 flex flex-col h-[700px] {clsx(
-		$settings.prompt && 'justify-start pt-16 h-fit',
-		$settings.prompt == '' && ''
+	class="px-3 flex flex-col h-[calc(100vh-84px)] justify-end {clsx(
+		$settings.isAnswering && ''
 	)} overflow-y-scroll"
 >
-	{#if $settings.answers == null || $settings.answers == undefined || $settings.answers === ''}
-		<h1 class="text-[32px] leading-none font-happy">
+	{#if $settings.isAnswering == false}
+		<h1 class="text-[32px] leading-none font-happy text-teal-700">
 			L'analyse des données rendue facile avec <span class="italic">dat</span>.
 		</h1>
-		<Preprompts on:startprompt={handlePromptStart} {preprompts} />
 	{/if}
-	{#if $settings.answers != null && $settings.answers.length > 0}
+	{#if $settings.isAnswering}
 		<PromptInteraction />
+	{:else}
+		<Preprompts on:startprompt={handlePromptStart} {preprompts} />
 	{/if}
 </section>
 <!-- Bottom bar -->
-<aside class="left-0 right-0 p-4 bottom-0 w-full grid grid-cols-[auto_56px] gap-2 bg-white">
+<aside class="left-0 right-0 p-4 bottom-0 absolute w-full grid grid-cols-[auto_56px] gap-2">
 	<!-- Prompt input -->
-	<form method="post" action="#" class="relative w-full">
+	<form class="relative w-full">
 		<input
-			class="w-full h-full z-0 p-4 bg-neutral-200 rounded-cards"
+			class="w-full h-full z-0 p-4 bg-slate-200 rounded-cards"
 			id="question"
 			name="question"
 			rows="4"
 			cols="50"
+			placeholder="Entrez-une question..."
 			required
 			bind:value={promptInput}
 		/>
@@ -130,12 +110,21 @@
 			type="submit"
 			value="Envoyer"
 			id="submitQuestion"
-			on:click={() => {
-				localStorage.setItem('currentQuestion', promptInput);
+			on:click={(e) => {
+				e.preventDefault();
+				$settings.answers = [
+					...$settings.answers,
+					{
+						author: 'Vous',
+						text: promptInput
+					}
+				];
+				promptInput = '';
+				$settings.isAnswering = true;
 			}}
 			class="absolute z-20 rounded-cards p-4 right-0 top-1/2 -translate-y-1/2 flex flex-row justify-center can-hover:hover:translate-y-[calc(-50%-0.3rem)] transition-all duration-200"
 			><span class="sr-only">Submit</span>
-			<svg class="w-7 pl-2 aspect-square bg-neutral-200" fill="#000" viewBox="0 0 24 24">
+			<svg class="w-7 pl-2 aspect-square bg-slate-200" fill="#000" viewBox="0 0 24 24">
 				<path
 					d="M13 7.828V20h-2V7.828l-5.364 5.364-1.414-1.414L12 4l7.778 7.778-1.414 1.414L13 7.828Z"
 				></path>
@@ -147,8 +136,8 @@
 	<!-- Filters button -->
 	<button
 		class="relative {clsx(
-			filtersOpen && 'bg-neutral-300',
-			!filtersOpen && 'bg-neutral-200 can-hover:hover:bg-neutral-300'
+			filtersOpen && 'bg-teal-300',
+			!filtersOpen && 'bg-teal-200 can-hover:hover:bg-teal-300'
 		)} transition-all duration-200 rounded-cards w-fit aspect-square grid place-items-center"
 		on:click={() => ($settings.filtersOpen = !$settings.filtersOpen)}
 	>

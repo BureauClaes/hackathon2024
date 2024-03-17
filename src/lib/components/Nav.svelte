@@ -4,12 +4,14 @@
 	function restart() {
 		$settings.answer = [];
 		localStorage.removeItem('previousAnswer');
-		window.location.reload();
+		$settings.isAnswering = false;
+		$settings.answers = [];
+		$settings.selectedPrompt = '';
 	}
 </script>
 
 <nav
-	class="absolute top-0 px-4 pt-5 pb-2 flex flex-row justify-between w-full items-center bg-slate-100 border-b-[1px] border-slate-200"
+	class="absolute z-20 top-0 px-4 pt-5 pb-2 flex flex-row justify-between w-full items-center bg-slate-100 border-b-[1px] border-slate-200"
 >
 	<button on:click={restart} class="flex flex-row">
 		<svg width="72" height="26" viewBox="0 0 72 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -27,7 +29,7 @@
 			/>
 			<path
 				d="M9.93 25.02C8.4 25.02 7.17 23.85 7.17 22.29C7.17 20.97 8.07 19.89 9.36 19.62V15L5.34 17.31C5.4 17.52 5.46 17.79 5.46 18.15C5.46 19.62 4.26 20.88 2.76 20.88C1.29 20.88 0 19.65 0 18.15C0 16.68 1.2 15.42 2.73 15.42C3.54 15.42 4.23 15.72 4.77 16.32L8.76 14.01L4.77 11.7C4.26 12.3 3.6 12.6 2.76 12.6C1.23 12.6 0 11.37 0 9.9C0 8.4 1.26 7.14 2.76 7.14C4.29 7.14 5.46 8.43 5.46 9.87C5.46 10.23 5.4 10.5 5.34 10.71L9.36 13.02V8.4C8.1 8.16 7.17 7.11 7.17 5.73C7.17 4.2 8.4 3 9.9 3C11.46 3 12.66 4.26 12.66 5.73C12.66 7.05 11.7 8.16 10.47 8.4V13.02L14.49 10.71C14.4 10.47 14.37 10.2 14.37 9.87C14.37 8.4 15.54 7.14 17.07 7.14C18.66 7.14 19.83 8.43 19.83 9.9C19.83 11.37 18.57 12.6 17.07 12.6C16.23 12.6 15.57 12.3 15.06 11.7L11.04 14.01L15.06 16.32C15.6 15.72 16.29 15.42 17.1 15.42C18.6 15.42 19.83 16.68 19.83 18.15C19.83 19.62 18.57 20.88 17.07 20.88C15.54 20.88 14.37 19.62 14.37 18.15C14.37 17.82 14.4 17.55 14.49 17.31L10.47 15V19.62C11.76 19.92 12.66 21 12.66 22.29C12.66 23.85 11.46 25.02 9.93 25.02Z"
-				fill="black"
+				fill="teal"
 			/>
 		</svg></button
 	>
