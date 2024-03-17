@@ -86,14 +86,11 @@
 				// Query string
 				let search = string.toLowerCase();
 
-				console.log(original, search);
-
 				if (original.includes(search)) {
 					return database;
 				}
 			});
 		}
-		console.log(databases);
 	}
 
 	function resetDatabase() {

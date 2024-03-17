@@ -81,8 +81,8 @@
 
 <section
 	class="px-2 h-[calc(100vh-74px)] flex flex-col {clsx(
-		prompt && 'justify-start pt-16',
-		!prompt && 'justify-end'
+		$settings.prompt && 'justify-start pt-16',
+		$settings.prompt == '' && 'justify-end'
 	)} overflow-y-scroll"
 >
 	{#if $settings.prompt == ''}

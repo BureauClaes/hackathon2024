@@ -3,7 +3,6 @@
 
 	function restart() {
 		$settings.prompt = [];
-		console.log($settings);
 	}
 </script>
 
