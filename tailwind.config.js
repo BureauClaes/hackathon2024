@@ -10,18 +10,15 @@ export default {
 		},
 
 		fontFamily: {
-			sans: ['Graphik', 'sans-serif'],
-			serif: ['Merriweather', 'serif']
+			inter: ['Inter', 'sans-serif'],
+			happy: ['Happy', 'sans-serif']
 		},
 		extend: {
 			borderRadius: {
 				cards: '12px'
 			},
+
 			colors: {
-				blue: '#1fb6ff',
-				purple: '#7e5bef',
-				pink: '#ff49db',
-				orange: '#ff7849',
 				un: {
 					DEFAULT: '#F2FAF6',
 					medium: '#BDDDCE',
@@ -42,7 +39,11 @@ export default {
 					medium: '#EFC4C4',
 					dark: '#FF0D00'
 				},
-				cinq: '#192945',
+				cinq: {
+					DEFAULT: '#E5F6FF',
+					medium: '#C3EAFF',
+					dark: '#009BEF'
+				},
 				six: '#A8D1E7',
 				sept: '#F4D1AF',
 				huit: '#AFE8BF',

@@ -4,11 +4,11 @@
 	import Notification from '../lib/components/Notification.svelte';
 	import DatabasesFilter from '../lib/components/DatabasesFilter.svelte';
 	import settings from '$lib/stores/settings';
+	import Preprompts from '../lib/components/Preprompts.svelte';
 
-	let isPrompting = false,
-		promptInput,
-		items,
-		filtersOpen;
+	let promptInput,
+		filtersOpen,
+		prompt = [];
 
 	$: {
 		if ($settings.filtersOpen !== true && $settings.filtersOpen !== false) {
@@ -16,47 +16,83 @@
 		} else {
 			filtersOpen = $settings.filtersOpen;
 		}
+		console.log('Prompt store', $settings.prompt);
 	}
 
+	let preprompts = [
+		{
+			category: 'Environnement',
+			prompt: 'Où sont les bulles à verre à Verviers ?',
+			section: 'Tendance'
+		},
+		{
+			category: 'Culture',
+			prompt: 'Activités en extérieur à Mons?',
+			section: 'Tendance'
+		},
+		{
+			category: 'Mobilité',
+			prompt: 'Y-a-t-il un RaVel à Charleroi ?',
+			section: 'Tendance'
+		},
+		{
+			category: 'Santé',
+			prompt: 'Où se trouvent les défibrillateurs ? ',
+			section: 'Tendance'
+		},
+		{
+			category: 'Environnement',
+			prompt: 'Quelles sont les zones inondables en Wallonie ?',
+			section: 'Pour vous'
+		},
+		{
+			category: 'Mobilité',
+			prompt: 'Où se trouvent les parkings souterrains à Tournai ?',
+			section: 'Pour vous'
+		}
+	];
+	if ($settings.prompts === undefined || $settings.prompts.length === 0) {
+		$settings.prompts = preprompts;
+	}
 	async function handleSubmit(e) {
 		e.preventDefault();
 		if (promptInput !== '' && promptInput !== undefined) {
-			prompt = [
-				...prompt,
+			$settings.prompt = [
+				...$settings.prompt,
 				{
-					author: 'user',
+					author: 'Vous',
 					text: promptInput
 				}
 			];
 
 			promptInput = '';
-			fetch('https://dummyapi.online/api/todos')
-				.then((response) => response.json())
-				.then((json) => (items = json));
 		}
 	}
 
-	let prompt = [
-		{
-			author: 'user',
-			text: 'Quel est le budget de ce projet ?'
-		},
-		{
-			author: 'dat',
-			text: 'Le prix estimé est de 30€'
-		},
-		{
-			author: 'user',
-			text: 'Et combien de temps pourra-t-il durer ?'
-		}
-	];
+	function handlePromptStart(e) {
+		$settings.prompt = [
+			{
+				author: 'Vous',
+				text: e.detail.prompt.prompt
+			}
+		];
+	}
 </script>
 
-<!-- <button on:click={() => (isPrompting = !isPrompting)}>Toggle prompt</button> -->
-<section class="px-2 max-h-[calc(100vh-74px)] overflow-y-scroll">
-	<h1 class="text-3xl font-bold underline">Hello world!</h1>
-	{#if prompt}
-		<PromptInteraction {prompt} />
+<section
+	class="px-2 h-[calc(100vh-74px)] flex flex-col {clsx(
+		prompt && 'justify-start pt-16',
+		!prompt && 'justify-end'
+	)} overflow-y-scroll"
+>
+	{#if $settings.prompt == ''}
+		<h1 class="text-[32px] leading-none font-happy">
+			L'analyse des données rendue facile avec <span class="italic">dat</span>.
+		</h1>
+		<Preprompts on:startprompt={handlePromptStart} {preprompts} />
+	{/if}
+	{#if $settings.prompt}
+		<PromptInteraction props={$settings.prompt} />
 	{/if}
 </section>
 <!-- Bottom bar -->

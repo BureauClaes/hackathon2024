@@ -1,11 +1,12 @@
 <script>
 	import '../app.css';
-	import Footer from '../lib/components/Footer.svelte';
 	import Nav from '../lib/components/Nav.svelte';
 </script>
 
-<Nav />
-<slot />
+<div class="relative mx-auto">
+	<Nav />
+	<slot />
+</div>
 
 <style>
 </style>

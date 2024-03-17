@@ -1,8 +1,9 @@
 import { writable } from 'svelte/store';
 
 const settings = writable({
-	filtersOpen: true,
+	filtersOpen: false,
 	filters: [],
+	prompt: [],
 	fontSize: 12
 });
 
