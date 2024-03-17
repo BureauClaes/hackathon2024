@@ -2,8 +2,6 @@ import { PRIVATE_API_KEY } from '$env/static/private';
 
 const url = 'https://datgpt.westeurope.inference.ml.azure.com/score?fbclid=IwAR3iRLUmLqLyfxoblyoPW1C1kkSHi-MHtHQiLdp_Hn7x5nwg1QQq1VxMo2M';
 
-
-
 function fetchApi(questionInput, url) {
     return fetch(url, {
         method: 'POST',
@@ -26,7 +24,6 @@ function fetchApi(questionInput, url) {
         throw error; // Rejeter l'erreur pour la gérer à un niveau supérieur si nécessaire
     });
 }
-
 
 export const actions = {
     default: async ({ request }) => {

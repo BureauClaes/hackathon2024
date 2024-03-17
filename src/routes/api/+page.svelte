@@ -1,15 +1,28 @@
-<script>
-	/* import { onMount } from 'svelte'; */
+<script lang="ts">
+	import { onMount } from 'svelte';
 
 	export let form;
 
 	$: console.log(form);
-	/* onMount({
-		if(form) {
-			let responseBlock = document.getElementById('responseBlock');
-			responseBlock.innerHTML = form;
+
+	onMount(() => {
+		let buttonSubmit = document.getElementById('submitQuestion');
+
+		buttonSubmit.addEventListener('click', (e) => {
+			let questionInput = document.getElementById('question').value;
+			localStorage.setItem('currentQuestion', questionInput);
+		});
+
+		if (form) {
+			let response = form;
+			let question = localStorage.getItem('currentQuestion') || '';
+
+			let data = JSON.parse(localStorage.getItem('questionAnswerData')) || [];
+
+			data.push({ question, response });
+			localStorage.setItem('questionAnswerData', JSON.stringify(data));
 		}
-	}); */
+	});
 </script>
 
 <section class="px-2 pt-6">
