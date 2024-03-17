@@ -13,50 +13,55 @@
 		{
 			id: 'db1',
 			checked: false,
-			category: 'Economie',
+			category: 'Mobilité',
+			type: 'first',
 			label: 'Pomme'
 		},
 		{
 			id: 'db2',
 			checked: false,
-			category: 'Economie',
+			category: 'Mobilité',
+
 			label: 'Poire'
 		},
 		{
 			id: 'db3',
 			checked: false,
-			category: 'Economie',
+			category: 'Mobilité',
 			label: 'Abricot'
 		},
 		{
 			id: 'db4',
 			checked: false,
-			category: 'Economie',
-			label: 'Fraise'
+			category: 'Environnement',
+			label: 'Fraise',
+			type: 'first'
 		},
 		{
 			id: 'db5',
 			checked: false,
-			category: 'Economie',
+			category: 'Environnement',
 			label: 'Database 5'
 		},
 		{
 			id: 'db6',
 			checked: false,
-			category: 'Economie',
-			label: 'Database 6'
+			category: 'Culture',
+			label: 'Database 6',
+			type: 'first'
 		},
 		{
 			id: 'db7',
 			checked: false,
-			category: 'Economie',
+			category: 'Culture',
 			label: 'Database 7'
 		},
 		{
 			id: 'db8',
 			checked: false,
-			category: 'Economie',
-			label: 'Database 8'
+			category: 'Santé',
+			label: 'Database 8',
+			type: 'first'
 		}
 	];
 
@@ -74,7 +79,7 @@
 	}
 
 	function filterDatabases(string) {
-		if (string && string.length > 3) {
+		if (string && string.length > 2) {
 			databases = databases.filter((database) => {
 				// Item label
 				let original = database.label.toLowerCase();
@@ -96,9 +101,9 @@
 	}
 
 	$: {
-		if (filterQuery && filterQuery.length > 3) {
+		if (filterQuery && filterQuery.length > 2) {
 			filterDatabases(filterQuery);
-		} else if ((filterQuery && filterQuery.length <= 3) || !filterQuery) {
+		} else if ((filterQuery && filterQuery.length <= 2) || !filterQuery) {
 			resetDatabase();
 		}
 
@@ -113,10 +118,10 @@
 
 <modal
 	open
-	class="absolute w-full top-0 bg-white h-screen z-20 px-4 pb-10 pt-5"
+	class="absolute w-full top-0 bg-white min-h-screen z-20 px-4 pb-10 pt-5"
 	transition:fade={{ duration: 100 }}
 >
-	<!-- Bottom bar -->
+	<!-- Filter bar -->
 	<aside class="w-full left-4 grid grid-cols-[auto_56px] gap-2">
 		<!-- Filter input -->
 		<form action="" class="relative w-full">
@@ -146,7 +151,7 @@
 	</aside>
 
 	<!-- Checkboxes -->
-	<div class="mt-7 mb-2 w-full flex flex-row justify-between">
+	<div class="mt-7 w-full flex flex-row justify-between">
 		<p>
 			{$settings.filters.length} filtre<span
 				class={clsx(
@@ -176,7 +181,16 @@
 		<ul class="w-full space-y-2 flex flex-col">
 			{#each databases as database}
 				{#if database}
-					<li>
+					{#if database.type == 'first'}
+						<li class="!mt-10 font-semibold">
+							{database.category}
+						</li>
+					{/if}
+					<li
+						class="block font-medium {database.type == 'first'
+							? 'relative before:absolute before:-top-full before:font-bold before:text-gray-60'
+							: ''}"
+					>
 						<input
 							type="checkbox"
 							class="sr-only"
@@ -194,9 +208,9 @@
 								}
 							}}
 						/><label
-							class="py-3 border-2 pl-4 w-full block rounded-cards hover:cursor-pointer {clsx(
+							class="card-{database.category.toLocaleLowerCase()}  py-3 border-2 pl-4 w-full block rounded-cards hover:cursor-pointer transition-[background] duration-200 {clsx(
 								'',
-								database.checked && 'bg-gray-80 text-white'
+								database.checked && 'checked'
 							)} "
 							for={database.id}>{database.label}</label
 						>

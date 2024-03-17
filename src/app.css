@@ -12,3 +12,33 @@ input,
 textarea {
 	@apply focus:outline-black;
 }
+
+.card-environnement {
+	@apply bg-un border-un-medium text-un-dark;
+}
+
+.card-environnement.checked {
+	@apply bg-un-dark text-white;
+}
+
+.card-culture {
+	@apply bg-deux border-deux-medium text-deux-dark;
+}
+
+.card-culture.checked {
+	@apply bg-deux-dark text-white;
+}
+
+.card-mobilité {
+	@apply bg-trois border-trois-medium text-trois-dark;
+}
+
+.card-mobilité.checked {
+	@apply bg-trois-dark text-white;
+}
+.card-santé {
+	@apply bg-quatre border-quatre-medium text-quatre-dark;
+}
+.card-santé.checked {
+	@apply bg-quatre-dark text-white;
+}
