@@ -6,7 +6,7 @@
 
 	export let filtersOpen;
 
-	let filteredDatabases, filterDatabaseElement, selectedFilters;
+	let filterQuery, filterDatabaseElement, selectedFilters;
 
 	// Databases Sources
 	const databasesSource = [
@@ -73,7 +73,42 @@
 		});
 	}
 
-	$: console.log($settings.filters);
+	function filterDatabases(string) {
+		if (string && string.length > 3) {
+			databases = databases.filter((database) => {
+				// Item label
+				let original = database.label.toLowerCase();
+				// Query string
+				let search = string.toLowerCase();
+
+				console.log(original, search);
+
+				if (original.includes(search)) {
+					return database;
+				}
+			});
+		}
+		console.log(databases);
+	}
+
+	function resetDatabase() {
+		databases = databasesSource.map((db) => ({ ...db, checked: false }));
+	}
+
+	$: {
+		if (filterQuery && filterQuery.length > 3) {
+			filterDatabases(filterQuery);
+		} else if ((filterQuery && filterQuery.length <= 3) || !filterQuery) {
+			resetDatabase();
+		}
+
+		databases.forEach((database, indexA) => {
+			const indexB = $settings.filters.findIndex((filter) => filter.id === database.id);
+			if (indexB !== -1) {
+				databases[indexA] = $settings.filters[indexB];
+			}
+		});
+	}
 </script>
 
 <modal
@@ -89,18 +124,8 @@
 				type="text"
 				class="w-full z-0 p-4 bg-neutral-200 rounded-cards"
 				placeholder="Chercher une base de données"
-				bind:value={filteredDatabases}
-				on:keydown={(e) => {
-					if (filteredDatabases && filteredDatabases.length > 1) {
-						databases = databasesSource.map((db) => {
-							if (db && db.label.includes(filteredDatabases)) {
-								return db;
-							}
-						});
-					} else {
-						databases = databasesSource;
-					}
-				}}
+				bind:value={filterQuery}
+				on:keydown={filterDatabases}
 			/>
 		</form>
 		<!-- Close button --><button
