@@ -6,7 +6,7 @@
 
 	export let filtersOpen;
 
-	let filterQuery, filterDatabaseElement, selectedFilters;
+	let filterQuery;
 
 	// Databases Sources
 	const databasesSource = [
@@ -15,53 +15,64 @@
 			checked: false,
 			category: 'Mobilité',
 			type: 'first',
-			label: 'Pomme'
+			label: 'RaVel pratiquables à Charleroi (2024)'
 		},
 		{
 			id: 'db2',
 			checked: false,
 			category: 'Mobilité',
-
-			label: 'Poire'
+			label: 'Liste des parkings sousterrains dans le Hainaut (2022)'
 		},
 		{
 			id: 'db3',
 			checked: false,
 			category: 'Mobilité',
-			label: 'Abricot'
+			label: 'Gares avec moyens de transport multi-modal (2022)'
 		},
 		{
 			id: 'db4',
 			checked: false,
 			category: 'Environnement',
-			label: 'Fraise',
-			type: 'first'
+			type: 'first',
+			label: "Stations d'épurations"
 		},
 		{
 			id: 'db5',
 			checked: false,
 			category: 'Environnement',
-			label: 'Database 5'
+			label: 'Zones de protection de captage'
 		},
 		{
 			id: 'db6',
 			checked: false,
 			category: 'Culture',
-			label: 'Database 6',
+			label: 'Top 100 des livres empruntés dans les bibliothèques (2014)',
 			type: 'first'
 		},
 		{
 			id: 'db7',
 			checked: false,
 			category: 'Culture',
-			label: 'Database 7'
+			label: 'Ludothèques francophones (2022)'
 		},
 		{
 			id: 'db8',
 			checked: false,
 			category: 'Santé',
-			label: 'Database 8',
+			label: 'Défibrilateurs',
 			type: 'first'
+		},
+		{
+			id: 'db9',
+			checked: false,
+			category: 'Santé',
+			label: 'Espérence de vie en bonne santé (i12)'
+		},
+		{
+			id: 'db10',
+			checked: false,
+			category: 'Santé',
+			label: 'Maladie ou problème de santé de longue durée (i16)'
 		}
 	];
 

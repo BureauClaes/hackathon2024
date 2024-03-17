@@ -3,8 +3,6 @@
 
 	export let form;
 
-	$: console.log(form);
-
 	onMount(() => {
 		let buttonSubmit = document.getElementById('submitQuestion');
 

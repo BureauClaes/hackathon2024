@@ -4,6 +4,7 @@ const settings = writable({
 	filtersOpen: false,
 	filters: [],
 	prompt: [],
+	answers: [],
 	fontSize: 12
 });
 

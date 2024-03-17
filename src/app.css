@@ -26,7 +26,7 @@
 }
 
 :root {
-	@apply bg-slate-100 font-inter;
+	@apply font-inter bg-slate-200;
 }
 
 h1 {
@@ -68,4 +68,11 @@ textarea {
 }
 .card-santé.checked {
 	@apply bg-quatre-dark text-white;
+}
+
+.card-économie {
+	@apply bg-cinq border-cinq-medium text-cinq-dark can-hover:hover:bg-cinq-dark can-hover:hover:text-white transition-all duration-200;
+}
+.card-économie.checked {
+	@apply bg-cinq-dark text-white;
 }

@@ -3,10 +3,12 @@
 	import Nav from '../lib/components/Nav.svelte';
 </script>
 
-<div class="relative mx-auto">
-	<Nav />
-	<slot />
-</div>
+<main class="flex justify-center items-center h-screen">
+	<div class="relative max-w-[400px] max-h-fit bg-white mx-auto">
+		<Nav />
+		<slot />
+	</div>
+</main>
 
 <style>
 </style>
