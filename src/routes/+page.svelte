@@ -114,7 +114,7 @@
 	{/if}
 </section>
 <!-- Bottom bar -->
-<aside class="fixed bottom-4 w-[calc(100%-2rem)] left-4 grid grid-cols-[auto_56px] gap-2 w-max">
+<aside class="relative w-[calc(100%-2rem)] left-4 grid grid-cols-[auto_56px] gap-2 bg-white">
 	<!-- Prompt input -->
 	<form method="post" action="#" class="relative w-full">
 		<input

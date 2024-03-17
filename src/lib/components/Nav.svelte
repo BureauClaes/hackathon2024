@@ -9,7 +9,7 @@
 </script>
 
 <nav
-	class="fixed px-4 pt-5 pb-2 flex flex-row justify-between w-full items-center bg-slate-100 left-[1/2]"
+	class="absolute top-0 px-4 pt-5 pb-2 flex flex-row justify-between w-full items-center bg-slate-100 border-b-[1px] border-slate-200"
 >
 	<button on:click={restart} class="flex flex-row">
 		<svg width="72" height="26" viewBox="0 0 72 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -33,10 +33,8 @@
 	>
 
 	<div class="flex flex-row items-stretch gap-2">
-		<button class="rounded-lg bg-neutral-200 py-3 px-3" on:click={restart}>Nouveau</button>
-		<button
-			disabled
-			class="aspect-square h-[48px] grid place-items-center bg-neutral-200 rounded-lg cursor-not-allowed opacity-30"
+		<button class="rounded-lg bg-slate-200 py-3 px-3" on:click={restart}>Nouveau</button>
+		<button disabled class="aspect-square h-[48px] grid place-items-center bg-slate-200 rounded-lg"
 			><span class="sr-only">Historique</span>
 			<svg
 				class="aspect-square w-[23px] h-fit fill-gray-40"
