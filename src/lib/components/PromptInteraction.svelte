@@ -5,8 +5,8 @@
 </script>
 
 <ul class="space-y-4">
-	{#if $settings.prompt.length > 0}
-		{#each $settings.prompt as entry, index (index)}
+	{#if $settings.answers.length > 0}
+		{#each $settings.answers as entry, index (index)}
 			<li transition:fly={{ y: 5 }}>
 				<div class="flex flex-row gap-2 mb-1">
 					<div class="bg-green-500 w-6 aspect-square rounded-full"></div>

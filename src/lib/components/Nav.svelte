@@ -2,7 +2,9 @@
 	import settings from '$lib/stores/settings';
 
 	function restart() {
-		$settings.prompt = [];
+		$settings.answer = [];
+		localStorage.clear();
+		window.location.reload();
 	}
 </script>
 
